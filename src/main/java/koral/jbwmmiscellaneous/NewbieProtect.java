@@ -6,17 +6,23 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.logging.Handler;
 
 
 public class NewbieProtect implements Listener, CommandExecutor {
     private Map<String, Long> protect = new HashMap<>();
     private ConfigManager newbieProtect = new ConfigManager("newbieProtect.yml");
+    private Listener listener = new NewbieProtect();
+
+    public Listener getListener() {
+        return listener;
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -48,10 +54,15 @@ public class NewbieProtect implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(command.getName().equals("newbie") && args[0].equals("reload")) {
-            newbieProtect.saveCustomDefaultConfig();
             newbieProtect.reloadCustomConfig();
             sender.sendMessage("przeladowano config");
         }
+        if(command.getName().equals("unregisterEvent")){
+            HandlerList.unregisterAll(JbwmMiscellaneous.getJbwmMiscellaneous().listener);
+            sender.sendMessage("Odrejestrowano event");
+
+        }
         return false;
     }
+
 }
