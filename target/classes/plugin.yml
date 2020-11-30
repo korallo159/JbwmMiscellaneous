@@ -1,0 +1,8 @@
+name: JbwmMiscellaneous
+version: 1.0
+main: koral.jbwmmiscellaneous.JbwmMiscellaneous
+api-version: 1.16
+authors: [ koral ]
+description: Miscellaneous
+commands:
+  newbie:
