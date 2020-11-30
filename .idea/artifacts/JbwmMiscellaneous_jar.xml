@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JbwmMiscellaneous:jar">
+    <output-path>$USER_HOME$/Desktop/1.16 serw/plugins</output-path>
+    <root id="archive" name="JbwmMiscellaneous.jar">
+      <element id="module-output" name="JbwmMiscellaneous" />
+    </root>
+  </artifact>
+</component>

@@ -5,5 +5,4 @@ api-version: 1.16
 authors: [ koral ]
 description: Miscellaneous
 commands:
-    newbie:
-    unregisterEvent:
+  newbie:
