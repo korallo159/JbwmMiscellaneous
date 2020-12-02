@@ -6,7 +6,6 @@ public final class JbwmMiscellaneous extends JavaPlugin {
     public static JbwmMiscellaneous jbwmMiscellaneous;
     private ListenerManager listenerManager;
 
-
     @Override
     public void onEnable() {
         jbwmMiscellaneous = this;
