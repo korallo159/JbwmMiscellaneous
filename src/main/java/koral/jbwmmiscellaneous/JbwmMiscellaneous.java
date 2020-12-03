@@ -9,6 +9,8 @@ public final class JbwmMiscellaneous extends JavaPlugin {
     @Override
     public void onEnable() {
         jbwmMiscellaneous = this;
+        new Manager();
+        saveDefaultConfig();
         listenerManager = new ListenerManager();
         listenerManager.registerEvents();
         // Plugin startup logic
