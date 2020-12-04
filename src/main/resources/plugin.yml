@@ -3,6 +3,5 @@ version: ${project.version}
 main: koral.jbwmmiscellaneous.JbwmMiscellaneous
 api-version: 1.16
 authors: [ koral ]
-description: Miscellaneous
+description: some solutions from jbwm
 commands:
-  newbie:
