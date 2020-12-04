@@ -1,18 +1,16 @@
 package koral.jbwmmiscellaneous;
 
+import koral.jbwmmiscellaneous.managers.ModuleManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class JbwmMiscellaneous extends JavaPlugin {
     public static JbwmMiscellaneous jbwmMiscellaneous;
-    private ListenerManager listenerManager;
 
     @Override
     public void onEnable() {
         jbwmMiscellaneous = this;
-        new Manager();
+        new ModuleManager();
         saveDefaultConfig();
-        listenerManager = new ListenerManager();
-        listenerManager.registerEvents();
         // Plugin startup logic
 
     }

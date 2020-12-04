@@ -1,14 +1,15 @@
-package koral.jbwmmiscellaneous;
+package koral.jbwmmiscellaneous.modules;
+import koral.jbwmmiscellaneous.managers.ConfigManager;
+import koral.jbwmmiscellaneous.JbwmMiscellaneous;
+import koral.jbwmmiscellaneous.managers.CommandManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -16,8 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 
 public class NewbieProtect extends CommandManager implements Listener {
@@ -57,6 +58,11 @@ public class NewbieProtect extends CommandManager implements Listener {
         }
 
     @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        return null;
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(command.getName().equals("newbie") && args.length == 0){
             sender.sendMessage(ChatColor.RED + "Wpisz jakiś argument");
@@ -69,7 +75,7 @@ public class NewbieProtect extends CommandManager implements Listener {
             return true;
         }
 
-        return false;
+        return true;
     }
 
     private void runActionBar(Player p) {

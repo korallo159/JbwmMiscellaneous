@@ -1,8 +1,9 @@
-package koral.jbwmmiscellaneous;
+package koral.jbwmmiscellaneous.managers;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -14,16 +15,16 @@ import org.bukkit.plugin.Plugin;
 import com.google.common.collect.Lists;
 
 
-public abstract class Komenda implements TabExecutor {
-    List<PluginCommand> _komendy = Lists.newArrayList();
+public abstract class CommandManager implements TabExecutor {
+   List<PluginCommand> _komendy = Lists.newArrayList();
     boolean _zarejestrowane_komendy = true;
-    public Komenda(String komenda) {
+    public CommandManager(String komenda) {
         ustawKomende(komenda, null, null);
     }
-    public Komenda(String komenda, String użycie) {
+    public CommandManager(String komenda, String użycie) {
         ustawKomende(komenda, użycie, null);
     }
-    public Komenda(String komenda, String użycie, String... aliasy) {
+    public CommandManager(String komenda, String użycie, String... aliasy) {
         ustawKomende(komenda, użycie, Lists.newArrayList(aliasy));
     }
 
@@ -51,11 +52,12 @@ public abstract class Komenda implements TabExecutor {
         cmd.setTabCompleter(this);
         cmd.setExecutor(this);
     }
+
     private PluginCommand komenda(String nazwa, String użycie, List<String> aliasy) throws Exception {
         Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
         c.setAccessible(true);
         PluginCommand komenda = c.newInstance(nazwa, JbwmMiscellaneous.getJbwmMiscellaneous());
-        komenda.setPermissionMessage("§cNie masz uprawnień ziomuś");
+        komenda.setPermissionMessage("§cNie masz uprawnień do tej komendy");
         komenda.setPermission((JbwmMiscellaneous.getJbwmMiscellaneous().getName() + "." + nazwa).toLowerCase());
         komenda.setUsage(użycie);
         if (aliasy != null)

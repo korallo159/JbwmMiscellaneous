@@ -1,4 +1,8 @@
-package koral.jbwmmiscellaneous;
+package koral.jbwmmiscellaneous.modules;
+import koral.jbwmmiscellaneous.JbwmMiscellaneous;
+import koral.jbwmmiscellaneous.managers.CommandManager;
+import koral.jbwmmiscellaneous.managers.ModuleManager;
+import koral.jbwmmiscellaneous.managers.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@ModuleManager.Moduł
 public class Voting extends CommandManager implements Listener, TabCompleter {
     private int votingTime;
     private BukkitTask bukkitTask = null;
@@ -23,16 +27,18 @@ public class Voting extends CommandManager implements Listener, TabCompleter {
     Map<String, Boolean> force = new HashMap<>();
     private ConfigManager voting = new ConfigManager("voting.yml");
     public Voting() {
-        super("vote");
+        super("vote", "/vote force/day/night/reload", "glosowanie");
     }
 
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
         if(sender instanceof Player) {
             Player player = (Player) sender;
-            if(args[0] == null) return false;
+            if(args.length == 0)
+                return false;
             switch (args[0]) {
                 case "day":
                     if(bukkitTask == null || bukkitTask.isCancelled() || day.containsKey(player.getUniqueId().toString())) {
@@ -85,7 +91,7 @@ public class Voting extends CommandManager implements Listener, TabCompleter {
                     }
             }
         }
-        return false;
+        return true;
     }
     private void checkVotesAndDoThing(){
         if(day.size() > night.size()){

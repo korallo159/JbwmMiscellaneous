@@ -6,6 +6,3 @@ authors: [ koral ]
 description: Miscellaneous
 commands:
   newbie:
-  vote:
-    description: vote day/night or force
-    aliases: glosowanie

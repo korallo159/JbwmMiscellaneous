@@ -1,2 +1,4 @@
 #moduły
-ExampleModule: true
+ExampleModule: false
+Voting: false
+NewbieProtect: false
