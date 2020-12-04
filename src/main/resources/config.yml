@@ -3,3 +3,11 @@ ExampleModule: false
 Voting: false
 NewbieProtect: false
 FrakcjonawkaVouchers: false
+
+#database connection
+#dla bezpieczenstwa, nie uruchamiaj modulow zwiazanych z baza danych bez polaczen.
+host: "127.0.0.1"
+port: 3306
+database: 'jbwmstats'
+username: 'jbwm'
+password: ''
