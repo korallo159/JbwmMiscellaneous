@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import static koral.jbwmmiscellaneous.database.DatabaseConnection.hikari;
 
 public class CreateTables {
-    public void createTable() {
+    public static void createStatsTable() {
         Connection connection = null;
         String create = "CREATE TABLE IF NOT EXISTS Stats(UUID varchar(36), NICK VARCHAR(16), PRIMARY KEY (UUID))";
         PreparedStatement statement = null;

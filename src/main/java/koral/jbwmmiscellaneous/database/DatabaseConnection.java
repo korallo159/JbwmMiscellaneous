@@ -7,7 +7,7 @@ public class DatabaseConnection {
 
     public static HikariDataSource hikari;
 
-    public void connectToDatabase() {
+    public static void connectToDatabase() {
         hikari = new HikariDataSource();
         hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
         hikari.addDataSourceProperty("serverName", JbwmMiscellaneous.getJbwmMiscellaneous().getConfig().getString("host"));

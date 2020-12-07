@@ -3,6 +3,8 @@
     <output-path>$USER_HOME$/Desktop/moje pluginy/plugins</output-path>
     <root id="archive" name="JbwmMiscellaneous.jar">
       <element id="module-output" name="JbwmMiscellaneous" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/3.4.6-SNAPSHOT/HikariCP-3.4.6-20201015.114549-3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/2.0.0-alpha1/slf4j-api-2.0.0-alpha1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
