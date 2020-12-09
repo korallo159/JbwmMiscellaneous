@@ -246,6 +246,12 @@ public class Frakcjonawka extends CommandManager implements Listener {
         }
     }
 
+    @EventHandler
+    public void AsyncPlayerChatEvent(AsyncPlayerChatEvent e){
+
+    }
+
+
     public ItemStack getItem() {
         ItemStack zmianafrakcji = new ItemStack(Material.PAPER);
         ItemMeta itemMeta = zmianafrakcji.getItemMeta();
@@ -271,5 +277,7 @@ public class Frakcjonawka extends CommandManager implements Listener {
 
         return itemStack;
     }
+
+
 
 }

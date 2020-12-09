@@ -217,7 +217,7 @@ public class StatsStatements {
     }
 
 
-    public List<String> getCurrentColumNames(){
+    public static List<String> getCurrentColumNames(){
         Connection connection = null;
         PreparedStatement statement = null;
         List<String> currentCollumns = new ArrayList<>();
