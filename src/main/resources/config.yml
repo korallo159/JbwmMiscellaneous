@@ -4,6 +4,7 @@ Voting: false
 NewbieProtect: false
 Frakcjonawka: true
 Stats: true
+Bets: true
 
 #database connection
 #Pamietaj aby nie wlaczac modulow zwiazanych z baza danych, bez poprawnego polaczenia.

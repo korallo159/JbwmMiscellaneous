@@ -2,16 +2,12 @@ package koral.jbwmmiscellaneous.managers;
 
 import com.google.common.base.Charsets;
 import koral.jbwmmiscellaneous.JbwmMiscellaneous;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.*;
 
 public class ConfigManager {
-    public static YamlConfiguration config;
-    public static File configFile;
+    public YamlConfiguration config;
+    public File configFile;
     public ConfigManager(String ymlName){
         this.configFile = new File(JbwmMiscellaneous.getJbwmMiscellaneous().getDataFolder(), ymlName);
         this.config = YamlConfiguration.loadConfiguration(configFile);
@@ -42,13 +38,21 @@ public class ConfigManager {
         config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8)));
     }
 
-    public void saveCustomConfig(){
-        reloadCustomConfig();
+    public void save(){
         try {
             config.save(configFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        reloadCustomConfig();
+    }
+
+    public YamlConfiguration getConfig() {
+        return config;
+    }
+
+    public File getConfigFile() {
+        return configFile;
     }
 
 
