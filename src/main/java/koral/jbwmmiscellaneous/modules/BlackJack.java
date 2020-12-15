@@ -1,5 +1,6 @@
 package koral.jbwmmiscellaneous.modules;
 
+import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
 import org.bukkit.Bukkit;
@@ -36,11 +37,15 @@ public class BlackJack extends CommandManager implements Listener {
         int x = 1; //min
         int y = 11; // max
         Player player = (Player) sender;
+        Random random2 = new Random();
+        for(int i = 0; i<100; i++)
+        JbwmMiscellaneous.log(random2.nextInt(y - x + 1) + x);
+
         if (!cd.containsKey(player.getUniqueId().toString()) || cd.get(player.getUniqueId().toString()) < System.currentTimeMillis() / 1000) {
             Random random = new Random();
             int losowa = random.nextInt(y - x + 1) + x;
             if (losowa != 1) {
-                sendToNearby(player, "§8§l[BLACKJACK] §f" + player.getDisplayName() + "§8 wylosował/a §e" + losowa);
+                sendToNearby(player, "§8§l[BLACKJACK] §f" + player.getDisplayName() + "§8 wylosował/a kartę o wartości §e" + losowa);
             } else {
                 sendToNearby(player, ("§8§l[BLACKJACK] §f" + player.getDisplayName() + "§8 wylosował/a §eASA"));
             }
@@ -60,6 +65,6 @@ public class BlackJack extends CommandManager implements Listener {
                 p.sendMessage(message);
             }
         }
-
     }
+
 }

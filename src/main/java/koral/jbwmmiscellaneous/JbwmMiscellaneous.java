@@ -22,6 +22,8 @@ public final class JbwmMiscellaneous extends JavaPlugin {
             CreateTables.createStatsTable();
         }
 
+        Pinger.sendPingRequest("51.75.57.188");
+
         // Plugin startup logic
 
     }
