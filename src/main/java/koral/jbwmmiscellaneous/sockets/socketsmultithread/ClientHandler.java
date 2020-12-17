@@ -1,4 +1,4 @@
-package koral.jbwmmiscellaneous;
+package koral.jbwmmiscellaneous.sockets.socketsmultithread;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,14 +22,10 @@ public class  ClientHandler implements Runnable {
     }
     @Override
     public void run(){
-        System.out.println((new Date().toString()));
+        System.out.println("Uzyskano polaczenie z " + client.getInetAddress());
+        System.out.println(new Date().toString());
 
     }
 
-    private void outToAll(String msg){
-        for(ClientHandler client: clients){
-            client.out.println(msg);
-        }
-    }
 
 }
