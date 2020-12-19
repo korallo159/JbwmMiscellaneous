@@ -87,7 +87,6 @@ public class OwnHorse extends CommandManager implements Listener {
             }
         }
     }
-
     @EventHandler
     public void onInventoryOpenEvent(InventoryOpenEvent e){
         if(e.getInventory() instanceof HorseInventory){
@@ -105,9 +104,7 @@ public class OwnHorse extends CommandManager implements Listener {
             if(!h.getOwner().getName().equals(p.getName()) && h.getOwner() != null) {
                 e.setCancelled(true);
             }
-
         }
-
     }
 
     @EventHandler
