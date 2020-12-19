@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HorseSpawner {
-    private ConfigManager plugin = new ConfigManager("OwnHorse.yml");
+    private ConfigManager plugin = OwnHorse.horseConfig;
 
     private Location FirstLoc(Player player, double radius){
 

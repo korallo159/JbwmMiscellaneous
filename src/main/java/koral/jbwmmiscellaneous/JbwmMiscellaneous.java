@@ -5,6 +5,7 @@ import koral.jbwmmiscellaneous.database.CreateTables;
 import koral.jbwmmiscellaneous.database.DatabaseConnection;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
 import koral.jbwmmiscellaneous.sockets.Client;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -23,9 +24,6 @@ public final class JbwmMiscellaneous extends JavaPlugin {
             DatabaseConnection.connectToDatabase();
             CreateTables.createStatsTable();
         }
-
-        // Plugin startup logic
-
     }
     public static JbwmMiscellaneous getJbwmMiscellaneous() {
         return jbwmMiscellaneous;
@@ -33,9 +31,8 @@ public final class JbwmMiscellaneous extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
-
+    //pozyczone od michalasa D: util do logowania
     public static String listToString(List<?> lista, int start, String wstawka) {
         StringBuilder s = new StringBuilder(lista.size() > start ? ""+lista.get(start) : "");
         int i=0;
@@ -64,6 +61,13 @@ public final class JbwmMiscellaneous extends JavaPlugin {
     }
     public static void error(Object...msg) {
         logger.severe(logprefix + listToString(msg, 0));
+    }
+
+    //rejestracja permisji, aby podczas dodawania permisji byly one widoczne.
+    public static void addPerm(String... permissions) {
+        PluginManager pluginManager = JbwmMiscellaneous.getJbwmMiscellaneous().getServer().getPluginManager();
+        for (String permission : permissions)
+            pluginManager.addPermission(new org.bukkit.permissions.Permission(permission));
     }
 
 }

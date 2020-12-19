@@ -7,6 +7,7 @@ Stats: false
 Bets: false
 BlackJack: true
 OwnHorse: true
+LocalChat: true
 
 #database connection
 #Pamietaj aby nie wlaczac modulow zwiazanych z baza danych, bez poprawnego polaczenia.

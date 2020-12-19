@@ -2,6 +2,7 @@ package koral.jbwmmiscellaneous.modules;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
 import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
+import koral.jbwmmiscellaneous.managers.ModuleManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@ModuleManager.Moduł
 public class NewbieProtect extends CommandManager implements Listener {
     private Map<String, Long> protect = new HashMap<>();
     private ConfigManager newbieProtect = new ConfigManager("newbieProtect.yml");
@@ -34,7 +35,8 @@ public class NewbieProtect extends CommandManager implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         runActionBar(p);
-        if (!p.hasPlayedBefore()) {
+        p.sendMessage(newbieProtect.getConfig().getString("NewbieProtectJoinMessage"));
+        if (p.hasPlayedBefore()) {
             protect.put(p.getUniqueId().toString(), System.currentTimeMillis() / 1000 + newbieProtect.config.getLong("ProtectTime"));
             runActionBar(p);
         }

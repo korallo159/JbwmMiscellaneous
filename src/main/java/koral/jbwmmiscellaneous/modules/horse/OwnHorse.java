@@ -30,13 +30,14 @@ import java.util.List;
 
 @ModuleManager.Moduł
 public class OwnHorse extends CommandManager implements Listener {
-    private ConfigManager horseConfig = new ConfigManager("OwnHorse.yml");
+    public static ConfigManager horseConfig = new ConfigManager("OwnHorse.yml");
     private Cooldown cooldown = new Cooldown();
     private HorseSpawner summonHorse = new HorseSpawner();
     public OwnHorse() {
         super("horse", "/horse mvip/svip spawnuje twojego konia", "kon", "konik", "wierzchowiec");
         ustawKomende("ksiegikoni", "/horseksiegi dodaje wszystkie ksiegi koni", Collections.emptyList());
     }
+
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {

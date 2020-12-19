@@ -3,7 +3,9 @@ package koral.jbwmmiscellaneous.modules;
 import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
+import koral.jbwmmiscellaneous.managers.ModuleManager;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,27 +16,28 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.List;
-
+@ModuleManager.Moduł
 public class LocalChat extends CommandManager implements Listener {
 
     ConfigManager config = new ConfigManager("LocalChat.yml");
 
     public LocalChat() {
         super("localchat");
+        JbwmMiscellaneous.addPerm("JbwmMiscellaneous.localchat.bypass");
     }
-    private static boolean isEnabled;
+    private static boolean isEnabled = true;
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length <= 1)
-            return utab(args, "bypass");
+            return utab(args, "bypass", "toggle");
         return null;
     }
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent e ){
         Player p = e.getPlayer();
-        if(p.hasPermission("localchat.bypass")){
+        if(p.hasPermission("JbwmMiscellaneous.localchat.bypass")){
             p.setMetadata("bypass", new FixedMetadataValue(JbwmMiscellaneous.getJbwmMiscellaneous(), true));
 
         }
@@ -58,11 +61,18 @@ public class LocalChat extends CommandManager implements Listener {
                     player.removeMetadata("bypass", JbwmMiscellaneous.getJbwmMiscellaneous());
                     player.sendMessage(ChatColor.RED + "Twoje wiadomosci sa lokalne");
                 }
+                break;
             case "toggle":
-                if(isEnabled)
-                    isEnabled = false;
-                else
-                    isEnabled = true;
+                    if (isEnabled) {
+                        isEnabled = false;
+                        Bukkit.broadcastMessage(ChatColor.GREEN + "Czat jest teraz globalny");
+                    }
+                    else {
+                        isEnabled = true;
+                        Bukkit.broadcastMessage(ChatColor.RED + "Czat jest znowu lokalny");
+
+                    }
+                    break;
         }
         return true;
     }
