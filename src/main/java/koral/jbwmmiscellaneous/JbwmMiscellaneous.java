@@ -4,8 +4,10 @@ import com.google.common.collect.Lists;
 import koral.jbwmmiscellaneous.database.CreateTables;
 import koral.jbwmmiscellaneous.database.DatabaseConnection;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
+import koral.jbwmmiscellaneous.sockets.Client;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,8 +23,7 @@ public final class JbwmMiscellaneous extends JavaPlugin {
             DatabaseConnection.connectToDatabase();
             CreateTables.createStatsTable();
         }
-
-        Pinger.sendPingRequest("51.75.57.188");
+        Client.connectToServer();
 
         // Plugin startup logic
 

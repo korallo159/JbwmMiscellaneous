@@ -6,10 +6,19 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class Client {
-    public static void connectToServer() throws IOException {
-        Socket socket = new Socket("localhost", 4212);
+    public static void connectToServer() {
+        Socket socket = null;
+        try {
+            socket = new Socket("51.75.57.188", 4212);
+        } catch (IOException e) {
 
-        socket.close();
+        }
+        finally {
+            try {
+                socket.close();
+            } catch (IOException e) {
 
+            }
+        }
     }
 }
