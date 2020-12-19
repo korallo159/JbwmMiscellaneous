@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HorseSpawner {
-    private ConfigManager plugin = new ConfigManager("OwnHorse");
+    private ConfigManager plugin = new ConfigManager("OwnHorse.yml");
 
     private Location FirstLoc(Player player, double radius){
 
@@ -174,6 +174,7 @@ public class HorseSpawner {
                 horse.setRemoveWhenFarAway(true);
                 abstractHorseAttributes(horse, plugin.getConfig().getDouble("zombiehorsehp"),plugin.getConfig().getDouble("zombiehorsespeed"),plugin.getConfig().getDouble("zombiehorsestrength"));
                 horse.setOwner(player);
+                JbwmMiscellaneous.log(plugin.getConfig().getDouble("zombiehorsehp"));
                 player.sendMessage(ChatColor.GREEN + "Przywołałeś wierzchowca, powinien być gdzieś w pobliżu");
                 break;
             }

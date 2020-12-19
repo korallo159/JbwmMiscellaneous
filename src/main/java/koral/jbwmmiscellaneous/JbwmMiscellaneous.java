@@ -23,7 +23,6 @@ public final class JbwmMiscellaneous extends JavaPlugin {
             DatabaseConnection.connectToDatabase();
             CreateTables.createStatsTable();
         }
-        Client.connectToServer();
 
         // Plugin startup logic
 
