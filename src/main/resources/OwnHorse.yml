@@ -1,0 +1,23 @@
+#ownplayerhorse
+
+horseof: 'Koń gracza '
+
+defaulthorsehp: 30
+defaulthorsespeed: 0.2550
+defaulthorsestrength: 0.5
+
+battlehorsehp: 40
+battlehorsespeed: 0.2550
+battlehorsestrength: 0.6
+
+militaryhorsehp: 40
+militaryhorsespeed: 0.2550
+militaryhorsestrength: 0.6
+
+skeletonhorsehp: 45
+skeletonhorsespeed: 0.2650
+skeletonhorsestrength: 0.6
+
+zombiehorsehp: 50
+zombiehorsespeed: 0.2650
+zombiehorsestrength: 0.6
