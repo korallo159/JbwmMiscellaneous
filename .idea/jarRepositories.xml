@@ -26,5 +26,25 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="bungeecord-repo" />
+      <option name="name" value="bungeecord-repo" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="bungeecord-repo" />
+      <option name="name" value="bungeecord-repo" />
+      <option name="url" value="https://oss.sonatype.org/content/groups/public/net/md-5/bungeecord-api/1.16-R0.2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sonatype" />
+      <option name="name" value="sonatype" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="bungeecord-repo" />
+      <option name="name" value="bungeecord-repo" />
+      <option name="url" value="https://oss.sonatype.org/content/groups/public/net/md-5/bungeecord-api/1.16-R0.3/" />
+    </remote-repository>
   </component>
 </project>

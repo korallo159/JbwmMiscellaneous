@@ -6,11 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ProxyBans" />
+        <module name="ProxyBan" />
         <module name="JbwmMiscellaneous" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JbwmMiscellaneous" target="1.8" />
+      <module name="ProxyBan" target="1.8" />
+      <module name="ProxyBans" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

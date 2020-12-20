@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JbwmMiscellaneous.iml" filepath="$PROJECT_DIR$/JbwmMiscellaneous.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProxyBan/ProxyBan.iml" filepath="$PROJECT_DIR$/ProxyBan/ProxyBan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProxyBans/ProxyBans.iml" filepath="$PROJECT_DIR$/ProxyBans/ProxyBans.iml" />
     </modules>
   </component>
 </project>

@@ -30,7 +30,7 @@ public class LocalChat extends CommandManager implements Listener {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length <= 1)
-            return utab(args, "bypass", "toggle");
+            return utab(args, "bypass", "toggle", "radius");
         return null;
     }
 
@@ -39,7 +39,6 @@ public class LocalChat extends CommandManager implements Listener {
         Player p = e.getPlayer();
         if(p.hasPermission("JbwmMiscellaneous.localchat.bypass")){
             p.setMetadata("bypass", new FixedMetadataValue(JbwmMiscellaneous.getJbwmMiscellaneous(), true));
-
         }
     }
 
@@ -62,6 +61,16 @@ public class LocalChat extends CommandManager implements Listener {
                     player.sendMessage(ChatColor.RED + "Twoje wiadomosci sa lokalne");
                 }
                 break;
+            case "radius":
+                if(args.length == 2) {
+                    config.getConfig().set("messagedistance", Integer.valueOf(args[1]));
+                    player.sendMessage("Ustawiłeś dystans czatu lokalnego na: " + Integer.valueOf(args[1]));
+                    config.save();
+                }
+                else{
+                    player.sendMessage("Poprawne użycie: /localchat radius <dystans>");
+                }
+                    break;
             case "toggle":
                     if (isEnabled) {
                         isEnabled = false;
@@ -92,4 +101,5 @@ public class LocalChat extends CommandManager implements Listener {
         }
         else return;
     }
+
 }

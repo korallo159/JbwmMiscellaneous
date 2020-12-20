@@ -18,11 +18,6 @@ public class ExampleModule extends CommandManager implements Listener {
         super("modulereload");
     }
 
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e){
-        Player player = e.getPlayer();
-        player.sendMessage("test " + e.getTo());
-    }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {

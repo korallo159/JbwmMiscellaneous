@@ -146,7 +146,7 @@ public class HorseSpawner {
     public void SummonSkeletonPlayerHorse(Player player) {
         for (int i = 0; i < 10; i++) {
             Location randomloc = getRandomLocation(FirstLoc(player, 10), SecondLoc(player, 10));
-            if (randomloc.getBlock().getType().isEmpty() || randomloc.getBlock().getType().isAir() || randomloc.getBlock().getType().equals(Material.GRASS) || randomloc.getBlock().getType().equals(Material.TALL_GRASS)) {
+            if (randomloc.getBlock().getType().isEmpty() || randomloc.getBlock().getType().equals(Material.GRASS) || randomloc.getBlock().getType().equals(Material.TALL_GRASS)) {
                 AbstractHorse horse = (AbstractHorse) player.getWorld().spawnEntity(randomloc, EntityType.SKELETON_HORSE);
                 horse.setCustomName(plugin.getConfig().getString("horseof") + player.getName());
                 horse.setBreed(false);
