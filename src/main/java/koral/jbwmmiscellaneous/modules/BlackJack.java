@@ -3,14 +3,19 @@ package koral.jbwmmiscellaneous.modules;
 import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.block.CommandBlock;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +61,15 @@ public class BlackJack extends CommandManager implements Listener {
         return true;
     }
 
-    int distance = 20;
+    @EventHandler
+    public void preProcess(PlayerCommandPreprocessEvent e){
+        String[] array = e.getMessage().split(" ");
+        if(array[0].equalsIgnoreCase("/tellraw") && e.getMessage().contains("[BLACKJACK]"))
+        {
+            e.setCancelled(true);
+            Bukkit.broadcastMessage("§8§l[BLACKJACK] " + ChatColor.RED + e.getPlayer().getDisplayName() + " próbował oszukać w blackjack używając komendy tellraw");
+        }
+    }
 
     private void sendToNearby(Player player, String message) {
         for (Entity entity : player.getLocation().getNearbyEntities(16, 16, 16)) {

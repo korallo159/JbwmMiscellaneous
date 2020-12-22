@@ -1,0 +1,20 @@
+#bandageplugin
+
+bandagename: "Bandaż"
+adrenalinename: "Adrenalina"
+
+bandagelore: 'Kliknij prawym, aby się wyleczyć'
+adrenalinelore: 'Kliknij prawym aby wstrzyknac adrenaline'
+
+# disable global HP regeneration. If player have permission bandageplugin.admin he will regenerate his hp if its true
+disableregeneration: true
+
+#bandagecooldown in integral unit (seconds)
+cooldown: 3
+
+#amount of heal      10 hearts = 20
+healamount: 6
+
+adrenalinehealamount: 12
+
+adrenalinecooldown: 120

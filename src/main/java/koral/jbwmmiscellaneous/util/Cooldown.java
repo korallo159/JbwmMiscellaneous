@@ -8,6 +8,8 @@ import java.util.HashMap;
 public class Cooldown {
     public static HashMap<String, Long> cooldown = new HashMap<>();
 
+
+
     //ustawia graczu czas aktualny + INT dodatkowego czasu w sekundach
     public static void setSystemTime(Player player){
         cooldown.put(player.getUniqueId().toString(), (System.currentTimeMillis() / 1000));
