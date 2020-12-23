@@ -3,7 +3,7 @@ package koral.jbwmmiscellaneous.modules.horse;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
-import koral.jbwmmiscellaneous.util.Cooldown;
+import koral.jbwmmiscellaneous.util.Cooldowns;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -26,12 +26,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @ModuleManager.Moduł
 public class OwnHorse extends CommandManager implements Listener {
     public static ConfigManager horseConfig = new ConfigManager("OwnHorse.yml");
-    private Cooldown cooldown = new Cooldown();
+    private Cooldowns cooldown = new Cooldowns(new HashMap<>());
     private HorseSpawner summonHorse = new HorseSpawner();
     public OwnHorse() {
         super("horse", "/horse mvip/svip spawnuje twojego konia", "kon", "konik", "wierzchowiec");

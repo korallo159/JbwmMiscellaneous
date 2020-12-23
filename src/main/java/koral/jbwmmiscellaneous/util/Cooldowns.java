@@ -5,23 +5,25 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class Cooldown {
-    public static HashMap<String, Long> cooldown = new HashMap<>();
+public class Cooldowns {
+    private HashMap<String, Long> cooldown;
 
-
+    public Cooldowns(HashMap<String, Long> cooldown) {
+        this.cooldown = cooldown;
+    }
 
     //ustawia graczu czas aktualny + INT dodatkowego czasu w sekundach
-    public static void setSystemTime(Player player){
+    public void setSystemTime(Player player){
         cooldown.put(player.getUniqueId().toString(), (System.currentTimeMillis() / 1000));
 
     }
-    public static void setSystemTime(Player player, Integer additionaltime){
+    public void setSystemTime(Player player, Integer additionaltime){
         cooldown.put(player.getUniqueId().toString(), (System.currentTimeMillis() / 1000 + additionaltime));
 
     }
     //Sprawdza CZY czas gracza + dodatkowy czas Jest większy od systemowego, jeśli tak zwraca prawde i nie wykonuje, jeśli nie zwraca fałsz. // A więc przy sprawdzaniu CD trzeba uwzględnić
     // co ta funkcja zwraca.
-    public static boolean checkPlayerCooldown(Player player, Integer time) {
+    public boolean checkPlayerCooldown(Player player, Integer time) {
         if (cooldown.containsKey(player.getUniqueId().toString())) {
             if (cooldown.get(player.getUniqueId().toString()) + time >= (System.currentTimeMillis() / 1000)) {
                 player.sendMessage(ChatColor.RED +  "Musisz odczekać jeszcze " + (cooldown.get(player.getUniqueId().toString()) + time - System.currentTimeMillis() / 1000) + "sekund");

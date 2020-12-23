@@ -3,7 +3,7 @@ package koral.jbwmmiscellaneous.modules;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
-import koral.jbwmmiscellaneous.util.Cooldown;
+import koral.jbwmmiscellaneous.util.Cooldowns;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -33,6 +33,9 @@ import java.util.List;
 @ModuleManager.Moduł
 public class Bandage extends CommandManager implements Listener {
     HashMap<String, Long> cooldown = new HashMap<>();
+
+    Cooldowns adrenalineCooldown = new Cooldowns(new HashMap<>());
+
     public Bandage() {
         super("dajbandaz");
         ustawKomende("dajadrenaline", "daje do eq adrenaline", Collections.emptyList());
@@ -216,7 +219,7 @@ public class Bandage extends CommandManager implements Listener {
                             + bandageConfig.getConfig().getInt("cooldown") - System.currentTimeMillis() / 1000) + "s" );
             }
             if (event.getItem() != null && item.isSimilar(getAdrenaline(1))){
-                if(!Cooldown.checkPlayerCooldown(player, bandageConfig.getConfig().getInt("adrenalinecooldown"))){
+                if(!adrenalineCooldown.checkPlayerCooldown(player, bandageConfig.getConfig().getInt("adrenalinecooldown"))){
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BREATH, 1, 1);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,(bandageConfig.getConfig().getInt("adrenalinecooldown") * 20 / 3) , 1));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 1400, 0));
@@ -228,7 +231,7 @@ public class Bandage extends CommandManager implements Listener {
                         item.setAmount(item.getAmount() - 1);
                     else
                         player.getInventory().removeItem(getAdrenaline(1));
-                    Cooldown.setSystemTime(player);
+                    adrenalineCooldown.setSystemTime(player);
                 }
             }
         }
