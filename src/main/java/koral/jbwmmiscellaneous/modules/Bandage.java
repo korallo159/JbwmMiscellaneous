@@ -23,6 +23,8 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,9 +69,30 @@ public class Bandage extends CommandManager implements Listener {
                     }
                 }
             }
-            if(cmd.getName().equalsIgnoreCase("dajadrenaline")){
+            if(cmd.getName().equalsIgnoreCase("dajadrenaline")&& args.length == 0){
                 Player player = (Player) sender;
                 player.getInventory().addItem(getAdrenaline(1));
+                return true;
+            }
+            if(cmd.getName().equalsIgnoreCase("dajadrenaline") && args.length == 1){
+                final Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    sender.sendMessage(ChatColor.RED + "Taki gracz nie jest online!");
+                    return true;
+                }
+                target.getInventory().addItem(getAdrenaline(1));
+                target.sendMessage(ChatColor.GRAY + "Otrzymałeś adrenaline");
+                return true;
+            }
+            if(cmd.getName().equalsIgnoreCase("dajadrenaline") && args.length == 2){
+                final Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    sender.sendMessage(ChatColor.RED + "Taki gracz nie jest online!");
+
+                    return true;
+                }
+                target.getInventory().addItem(getAdrenaline(Integer.valueOf(args[1])));
+                target.sendMessage(ChatColor.GRAY + "Otrzymałeś adrenaline");
                 return true;
             }
             if(cmd.getName().equalsIgnoreCase("bandagereload")){
@@ -87,7 +110,23 @@ public class Bandage extends CommandManager implements Listener {
                     target.getInventory().addItem(getBandage(Integer.valueOf(args[1])));
                 target.sendMessage(ChatColor.GRAY + "Otrzymałeś Bandaz");
                 return true;
-            } else sender.sendMessage("komenda niedostepna dla sendera");
+            }
+            if(cmd.getName().equalsIgnoreCase("dajadrenaline") && args.length == 1){
+                Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    sender.sendMessage(ChatColor.RED + "Taki gracz nie jest online!");
+                    return true;
+                }
+                target.getInventory().addItem(getAdrenaline(1));
+            }
+            if(cmd.getName().equalsIgnoreCase("dajadrenaline") && args.length == 2){
+                Player target = Bukkit.getServer().getPlayer(args[0]);
+                if (target == null) {
+                    sender.sendMessage(ChatColor.RED + "Taki gracz nie jest online!");
+                    return true;
+                }
+                target.getInventory().addItem(getAdrenaline(Integer.valueOf(args[1])));
+            }
         }
 
         return true;
@@ -177,8 +216,10 @@ public class Bandage extends CommandManager implements Listener {
                             + bandageConfig.getConfig().getInt("cooldown") - System.currentTimeMillis() / 1000) + "s" );
             }
             if (event.getItem() != null && item.isSimilar(getAdrenaline(1))){
-                if(!Cooldown.checkPlayerCooldown(player, 120)){
-                    player.playSound(player.getLocation(), Sound.ENTITY_SHEEP_SHEAR, 1, 1);
+                if(!Cooldown.checkPlayerCooldown(player, bandageConfig.getConfig().getInt("adrenalinecooldown"))){
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BREATH, 1, 1);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,(bandageConfig.getConfig().getInt("adrenalinecooldown") * 20 / 3) , 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 1400, 0));
                     if (player.getHealth() + bandageConfig.getConfig().getInt("adrenalinehealamount") > player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())
                         wyleczmax(player);
                     else
