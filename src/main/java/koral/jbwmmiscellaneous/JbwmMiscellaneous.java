@@ -5,7 +5,11 @@ import koral.jbwmmiscellaneous.database.CreateTables;
 import koral.jbwmmiscellaneous.database.DatabaseConnection;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
 import koral.jbwmmiscellaneous.sockets.Client;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -14,7 +18,7 @@ import java.util.logging.Logger;
 
 public final class JbwmMiscellaneous extends JavaPlugin {
     public static JbwmMiscellaneous jbwmMiscellaneous;
-
+    public static LuckPerms luckPerms;
     @Override
     public void onEnable() {
         jbwmMiscellaneous = this;
@@ -24,11 +28,19 @@ public final class JbwmMiscellaneous extends JavaPlugin {
             DatabaseConnection.connectToDatabase();
             CreateTables.createStatsTable();
         }
+
+        registerLuckPerms();
     }
     public static JbwmMiscellaneous getJbwmMiscellaneous() {
         return jbwmMiscellaneous;
     }
 
+    private void registerLuckPerms() {
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (provider != null) {
+            luckPerms = provider.getProvider();
+        }
+    }
     @Override
     public void onDisable() {
     }
