@@ -9,6 +9,7 @@ BlackJack: true
 OwnHorse: true
 LocalChat: true
 Bandage: true
+DynmapPrinting: true
 
 #database connection
 #Pamietaj aby nie wlaczac modulow zwiazanych z baza danych, bez poprawnego polaczenia.
