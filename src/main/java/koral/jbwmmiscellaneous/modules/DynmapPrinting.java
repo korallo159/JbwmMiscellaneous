@@ -32,7 +32,6 @@ public class DynmapPrinting extends CommandManager implements Listener {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(sender instanceof Player) {
             Player player = (Player) sender;
-            if (cmd.getName().equalsIgnoreCase("rysuj")) {
                 if (rysuj.containsKey(((Player) sender).getUniqueId().toString())) {
                     if(rysuj.get(((Player) sender).getUniqueId().toString()) == false) {
                         rysuj.put(((Player) sender).getUniqueId().toString(), true);
@@ -47,7 +46,7 @@ public class DynmapPrinting extends CommandManager implements Listener {
                     rysuj.put(((Player) sender).getUniqueId().toString(), true);
                     sender.sendMessage(ChatColor.GREEN + "włączyłeś malowanie na mapie");
                 }
-            }
+
         }
         return true;
     }
