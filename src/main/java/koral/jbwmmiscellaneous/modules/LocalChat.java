@@ -30,7 +30,7 @@ public class LocalChat extends CommandManager implements Listener {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length <= 1)
-            return utab(args, "bypass", "toggle", "radius");
+            return utab(args, "bypass", "toggle", "radius", "reload");
         return null;
     }
 

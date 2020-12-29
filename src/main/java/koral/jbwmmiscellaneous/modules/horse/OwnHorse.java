@@ -51,13 +51,13 @@ public class OwnHorse extends CommandManager implements Listener {
             Player player =(Player) sender;
             if(cmd.getName().equalsIgnoreCase("horse") && args.length == 0) {
                 if (player.hasPermission("JbwmMiscellaneous.horse.svip")) {
-                    if (!cooldown.checkPlayerCooldown(player, 5)) {
+                    if (!cooldown.checkPlayerCooldown(player, 30)) {
                         summonHorse.checkHorsePlayer(player);
                         summonHorse.SummonSkeletonPlayerHorse(player);
                         cooldown.setSystemTime(player, 0);
                     }
                 } else if (player.hasPermission("JbwmMiscellaneous.horse.mvip")) {
-                    if (!cooldown.checkPlayerCooldown(player, 5)) {
+                    if (!cooldown.checkPlayerCooldown(player, 30)) {
                         summonHorse.checkHorsePlayer(player);
                         summonHorse.SummonZombiePlayerHorse(player);
                         cooldown.setSystemTime(player, 0);
@@ -150,14 +150,14 @@ public class OwnHorse extends CommandManager implements Listener {
 
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().contains(ChatColor.RED + "Kliknij prawym aby przywołać wierzchowca klasy 1")){
-                if(!cooldown.checkPlayerCooldown(player, 15)) {
+                if(!cooldown.checkPlayerCooldown(player, 30)) {
                     summonHorse.checkHorsePlayer(player);
                     summonHorse.SummonDefaultPlayerHorse(player);
                     cooldown.setSystemTime(player, 0);
                 }
             }
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().contains(ChatColor.RED + "Kliknij prawym aby przywołać wierzchowca klasy 2")){
-                if(!cooldown.checkPlayerCooldown(player, 15)) {
+                if(!cooldown.checkPlayerCooldown(player, 30)) {
                     summonHorse.checkHorsePlayer(player);
                     summonHorse.SummonBattlePlayerHorse(player);
                     cooldown.setSystemTime(player, 0);
@@ -165,7 +165,7 @@ public class OwnHorse extends CommandManager implements Listener {
             }
 
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().contains(ChatColor.RED + "Kliknij prawym aby przywołać wierzchowca klasy 3")){
-                if(!cooldown.checkPlayerCooldown(player, 15)) {
+                if(!cooldown.checkPlayerCooldown(player, 30)) {
                     summonHorse.checkHorsePlayer(player);
                     summonHorse.SummonMilitaryPlayerHorse(player);
                     cooldown.setSystemTime(player, 0);

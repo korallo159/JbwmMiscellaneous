@@ -1,6 +1,7 @@
 package koral.jbwmmiscellaneous.modules;
 
 import koral.jbwmmiscellaneous.JbwmMiscellaneous;
+import koral.jbwmmiscellaneous.database.PlayerStatements;
 import koral.jbwmmiscellaneous.database.StatsStatements;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
@@ -17,6 +18,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ import java.util.List;
 @ModuleManager.Moduł
 public class Stats extends CommandManager implements Listener {
     StatsGui statsGui = new StatsGui();
+    PlayerStatements playerStatements = new PlayerStatements();
     private StatsStatements statsStatements = new StatsStatements();
     public Stats() {
         super("stats");
@@ -38,6 +42,7 @@ public class Stats extends CommandManager implements Listener {
             commands.add("add");
             commands.add("remove");
             commands.add("advancedstatadd");
+            commands.add("purge");
             return commands;
         }
         if (cmd.getName().equals("stats") && args[0].equals("add")) {
@@ -129,7 +134,6 @@ public class Stats extends CommandManager implements Listener {
         }
         if(cmd.getName().equals("stats") && args.length == 0){
             p.openInventory(statsGui.getInv());
-            p.sendMessage("GUITest");
             return true;
         }
 
@@ -169,12 +173,21 @@ public class Stats extends CommandManager implements Listener {
                     else
                         sender.sendMessage(ChatColor.RED + "poprawne użycie: /stats advancedstatadd <NAZWA_STATYSTYKI> <TYP>");
                     break;
+                case"purge":
+                        OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[1]);
+                        if(!target2.hasPlayedBefore()){
+                            p.sendMessage(ChatColor.RED + "Taki gracz nigdy tutaj nie gral!");
+                        }
+                        else {
+                            resetStats(target2);
+                            p.sendMessage(ChatColor.GREEN + "Wyczyszczono statystyki gracza: " + ChatColor.YELLOW + target2.getName());
+                        }
+                        break;
             }
         return true;
     }
     //TODO reset function
     public void resetStats(OfflinePlayer p){
-
     }
 
 
@@ -253,6 +266,17 @@ public class Stats extends CommandManager implements Listener {
         }
         event.setCancelled(true);
     }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e){
+        playerStatements.createPlayerQuery(e.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e){
+        statsStatements.pushCustomStats(e.getPlayer());
+    }
+
 
 
 }

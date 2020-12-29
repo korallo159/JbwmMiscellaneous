@@ -221,7 +221,7 @@ public class Bandage extends CommandManager implements Listener {
             if (event.getItem() != null && item.isSimilar(getAdrenaline(1))){
                 if(!adrenalineCooldown.checkPlayerCooldown(player, bandageConfig.getConfig().getInt("adrenalinecooldown"))){
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BREATH, 1, 1);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,(bandageConfig.getConfig().getInt("adrenalinecooldown") * 20 / 3) , 1));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,(bandageConfig.getConfig().getInt("adrenalinecooldown") * 20 / 3) , 0));
                     player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 1400, 0));
                     if (player.getHealth() + bandageConfig.getConfig().getInt("adrenalinehealamount") > player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue())
                         wyleczmax(player);
