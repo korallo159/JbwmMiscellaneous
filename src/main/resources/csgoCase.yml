@@ -1,0 +1,33 @@
+#Szansa jest traktowana jako ilość itemów w puli podczas losowania. Wyobraz sobie, że masz 5 broni oraz 25 broni.
+#LOSOWANA jest 1 liczba, jeżeli trafisz zakres od 0-5 wygrywasz broń pierwszą, jeżeli liczbe od 5-15 wygrywasz broń drugą
+skiny:
+  1:
+    kolor: blue
+    pula: 5
+    permisja: mimirpg.skinyItemów.diamond_sword.2
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2580
+      type: CROSSBOW
+      meta:
+        ==: ItemMeta
+        meta-type: CROSSBOW
+        display-name: §3§lBarrett M82A1
+        lore:
+          - §3Wyobrażasz sobie kogoś zabić jednym strzałem?
+        custom-model-data: 2
+  2:
+    kolor: blue
+    pula: 20
+    permisja: tutaj.wpisz.permisje.od.michalasa.z.pluginu
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 2580
+      type: DIAMOND_SWORD
+      meta:
+        ==: ItemMeta
+        meta-type: CROSSBOW
+        display-name: §3§lBarrett M82A1
+        lore:
+          - §3Wyobrażasz sobie kogoś zabić jednym strzałem?
+        custom-model-data: 2

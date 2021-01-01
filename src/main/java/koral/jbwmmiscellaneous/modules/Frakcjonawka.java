@@ -168,11 +168,6 @@ public class Frakcjonawka extends CommandManager implements Listener {
 
 
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-
-
-
-
-
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.getItemMeta().getLore().contains("Kliknij prawym, aby zmienić frakcję")) {
                 player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_SHOOT, 1, 1);
                 Inventory gui = Bukkit.createInventory(player, 9, ChatColor.DARK_RED + "Wybór frakcji");

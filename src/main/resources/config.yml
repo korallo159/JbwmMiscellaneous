@@ -10,6 +10,8 @@ OwnHorse: true
 LocalChat: true
 Bandage: true
 DynmapPrinting: false
+QuestAddons: true
+csgoCase: true
 
 #database connection
 #Pamietaj aby nie wlaczac modulow zwiazanych z baza danych, bez poprawnego polaczenia.

@@ -1,5 +1,6 @@
 package koral.jbwmmiscellaneous.modules.horse;
 
+import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
@@ -37,6 +38,8 @@ public class OwnHorse extends CommandManager implements Listener {
     public OwnHorse() {
         super("horse", "/horse mvip/svip spawnuje twojego konia", "kon", "konik", "wierzchowiec");
         ustawKomende("ksiegikoni", "/horseksiegi dodaje wszystkie ksiegi koni", Collections.emptyList());
+        JbwmMiscellaneous.addPerm("JbwmMiscellaneous.horse.svip");
+        JbwmMiscellaneous.addPerm("JbwmMiscellaneous.horse.mvip");
     }
 
 
