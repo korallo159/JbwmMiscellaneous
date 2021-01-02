@@ -2,7 +2,7 @@
 #LOSOWANA jest 1 liczba, jeżeli trafisz zakres od 0-5 wygrywasz broń pierwszą, jeżeli liczbe od 5-15 wygrywasz broń drugą
 skiny:
   1:
-    kolor: blue
+    kolor: BLUE
     pula: 5
     permisja: mimirpg.skinyItemów.diamond_sword.2
     item:

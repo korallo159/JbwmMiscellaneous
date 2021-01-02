@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -56,6 +57,7 @@ public class csgoCase extends CommandManager implements Listener {
                 sender.sendMessage(ChatColor.GREEN + "Przeładowałeś case config");
                 break;
             case"testopening":
+                winInteger.put((Player) sender, winItem());
                 runAnimation((Player) sender);
                 break;
             case"add":
@@ -73,8 +75,6 @@ public class csgoCase extends CommandManager implements Listener {
 
     //od 10 do 16
     private void runAnimation(Player player) {
-        Bukkit.getScheduler().runTaskAsynchronously(JbwmMiscellaneous.getJbwmMiscellaneous(), task -> winInteger.put(player, winItem()));
-        winInteger.put(player, winItem());
         inventoryHashMap.put(player, Bukkit.getServer().createInventory(null, 27, "§4§lSkrzynia z skinami"));
         setStartInv(player);
         player.openInventory(inventoryHashMap.get(player));
@@ -126,45 +126,121 @@ public class csgoCase extends CommandManager implements Listener {
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
         for (String skins : csgoCaseConfig.getConfig().getConfigurationSection("skiny").getKeys(false)) {
             itemStacks.add(csgoCaseConfig.getConfig().getItemStack("skiny." + skins + ".item"));
+
         }
         return itemStacks;
+
     }
 
+
     private void setStartInv(Player player) {
-            ItemStack red = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-            ItemStack green = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
-            red.getItemMeta().setDisplayName("§4§lX");
-            green.getItemMeta().setDisplayName("§2§lWIN");
+            ItemStack dark = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+            ItemMeta itemMeta = dark.getItemMeta();
+            itemMeta.setDisplayName("§0§lX");
+            dark.setItemMeta(itemMeta);
         for (int i = 0; i < 27; i++) {
-            if (i != 4 && i != 22)
-                inventoryHashMap.get(player).setItem(i, red);
-            else inventoryHashMap.get(player).setItem(i, green);
+             if(i == 0 || i ==9 || i ==18 || i == 8 || i == 17 || i ==22 || i ==26 )
+                 inventoryHashMap.get(player).setItem(i, dark);
         }
-        Random random = new Random();
-        for (int i = 10; i < 17; i++) {
-            if (itemStackList() == null) {
-
-            } else
-                inventoryHashMap.get(player).setItem(i, itemStackList().get(random.nextInt(getSkinsSize())));
-
-        }
+        ItemStack itemStack = new ItemStack(Material.END_CRYSTAL);
+        ItemMeta itemMeta2 = itemStack.getItemMeta();
+        itemMeta2.setDisplayName("§a§lWYGRANA");
+        itemStack.setItemMeta(itemMeta2);
+        inventoryHashMap.get(player).setItem(4, itemStack);
+        inventoryHashMap.get(player).setItem(22, itemStack);
     }
 
     private void moveItemsToLeftandRollNextItem(Player player) {
         Random random = new Random();
         for (int i = 10; i < 16; i++) {
-            inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i + 1));
+            //przesuwanie skina
+            if(i!=12) {
+                //przesuwanie skina
+                if(inventoryHashMap.containsKey(player))
+                inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i + 1));
+                else return;
+                //przesuwanie paneli
+                if(i!=13) {
+                    inventoryHashMap.get(player).setItem(i + 9, inventoryHashMap.get(player).getItem(i + 10));
+                    inventoryHashMap.get(player).setItem(i - 9, inventoryHashMap.get(player).getItem(i - 8));
+                }
+            }
+           else if(i==12){
+                inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i +1));
+                ItemStack itemStack = inventoryHashMap.get(player).getItem(i +1);
+                if(itemStack != null)
+                createColorPanelsUpAndDown(itemStack, player, 3, 21);
+
+            }
+
             if (i == 15) {
-                inventoryHashMap.get(player).setItem(16, itemStackList().get(random.nextInt(getSkinsSize())));
+                ItemStack losowy = itemStackList().get(random.nextInt(getSkinsSize()));
+                inventoryHashMap.get(player).setItem(16, losowy);
+                createColorPanelsUpAndDown(losowy, player, 7, 25);
             }
         }
     }
 
+    private void createColorPanelsUpAndDown(ItemStack itemStack, Player player, int up, int down){
+        String nazwa = itemStack.getItemMeta().getDisplayName();
+        //light_blue
+        if(nazwa.contains("§b")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS_PANE));
+        }
+        //blue
+        else if(nazwa.contains("§1")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.BLUE_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.BLUE_STAINED_GLASS_PANE));
+        }
+        //purple
+        else if(nazwa.contains("§5")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.PURPLE_STAINED_GLASS_PANE));
+        }
+        //rozowy
+        else if(nazwa.contains("§d")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.PINK_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.PINK_STAINED_GLASS_PANE));
+        }
+        //czerwony
+        else if(nazwa.contains("§4")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.RED_STAINED_GLASS_PANE));
+        }
+        //zloty
+        else if(nazwa.contains("§6")){
+            inventoryHashMap.get(player).setItem(up, new ItemStack(Material.YELLOW_STAINED_GLASS_PANE));
+            inventoryHashMap.get(player).setItem(down, new ItemStack(Material.YELLOW_STAINED_GLASS_PANE));
+        }
+        else{//7 25
+
+        }
+
+    }
+//TODO: JEZELI JEST NA SLOCIE 13+9 albo 13-9 TO WTEDY NAD i POD ROBI ZIELONY.
     private void moveItemsToLeftandRollWinItem(Player player) {
         for (int i = 10; i < 16; i++) {
-            inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i + 1));
+            if(i!=12) {
+                //przesuwanie skina
+                inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i + 1));
+                //przesuwanie paneli
+                if(i!=13) {
+                    inventoryHashMap.get(player).setItem(i + 9, inventoryHashMap.get(player).getItem(i + 10));
+                    inventoryHashMap.get(player).setItem(i - 9, inventoryHashMap.get(player).getItem(i - 8));
+                }
+            }
+            else if(i==12){
+                inventoryHashMap.get(player).setItem(i, inventoryHashMap.get(player).getItem(i +1));
+                ItemStack itemStack = inventoryHashMap.get(player).getItem(i +1);
+                if(itemStack != null)
+                    createColorPanelsUpAndDown(itemStack, player, 3, 21);
+
+            }
             if (i == 15) {
-                inventoryHashMap.get(player).setItem(16, itemStackList().get(winInteger.get(player) - 1));
+                ItemStack wygrana = itemStackList().get(winInteger.get(player) - 1);
+                inventoryHashMap.get(player).setItem(16, wygrana);
+                createColorPanelsUpAndDown(wygrana, player, 7, 25);
             }
         }
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
@@ -264,11 +340,20 @@ public class csgoCase extends CommandManager implements Listener {
         ItemStack item = event.getItem();
         if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.isSimilar(caseItem(1))) {
-                runAnimation(player);
-                player.getInventory().removeItemAnySlot(caseItem(1));
+                for(int i = 0; i<100; i++) {
+                    winInteger.put(player, winItem());
+                    if (!player.hasPermission(csgoCaseConfig.getConfig().getString("skiny." + winInteger.get(player) + ".permisja"))) {
+                        runAnimation(player);
+                        player.getInventory().removeItemAnySlot(caseItem(1));
+                        break;
+                    }
+                    if(i==99)
+                        player.sendMessage(ChatColor.RED + "Skrzynie się przegrzały");
+                }
             }
         }
     }
+
 
 //TODO: dynamiczne panele, zeby wygladalo czy jest niebieski skin etc.
 
