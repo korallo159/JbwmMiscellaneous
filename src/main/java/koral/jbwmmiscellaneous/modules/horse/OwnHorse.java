@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -235,6 +236,15 @@ public class OwnHorse extends CommandManager implements Listener {
             player.sendMessage(ChatColor.DARK_RED + "Twój koń zginął! Będziesz potrzebował więcej czasu aby go przywołać");
             event.getDrops().clear();
         }
+        if(e instanceof Player){
+            Player player = (Player) event.getEntity();
+            for(ItemStack is: event.getDrops()){
+                if(is.isSimilar(getHorseBook1()) || is.isSimilar(getHorseBook2()) || is.isSimilar(getHorseBook3())){
+
+                }
+            }
+        }
     }
+
 
   }

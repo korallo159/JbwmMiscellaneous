@@ -4,6 +4,7 @@ import koral.jbwmmiscellaneous.JbwmMiscellaneous;
 import koral.jbwmmiscellaneous.managers.CommandManager;
 import koral.jbwmmiscellaneous.managers.ConfigManager;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
+import koral.jbwmmiscellaneous.util.Cooldowns;
 import net.luckperms.api.LuckPerms;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -20,6 +21,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -42,6 +44,7 @@ public class csgoCase extends CommandManager implements Listener {
     HashMap<Player, BukkitTask> globalTaskHashMap = new HashMap<>();
     HashMap<Player, Integer> winInteger = new HashMap<>();
     ConfigManager csgoCaseConfig = new ConfigManager("csgoCase.yml");
+    Cooldowns cooldown = new Cooldowns(new HashMap<>());
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
@@ -338,19 +341,34 @@ public class csgoCase extends CommandManager implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack item = event.getItem();
-        if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
+        if (action.equals(Action.RIGHT_CLICK_AIR)) {
             if (event.getItem() != null && item.getItemMeta().getLore() != null && item.isSimilar(caseItem(1))) {
-                for(int i = 0; i<100; i++) {
-                    winInteger.put(player, winItem());
-                    if (!player.hasPermission(csgoCaseConfig.getConfig().getString("skiny." + winInteger.get(player) + ".permisja"))) {
-                        runAnimation(player);
-                        player.getInventory().removeItemAnySlot(caseItem(1));
-                        break;
+                    if (!cooldown.checkPlayerCooldown(player, 5)) {
+                        for (int i = 0; i < 100; i++) {
+                            winInteger.put(player, winItem());
+                            if (!player.hasPermission(csgoCaseConfig.getConfig().getString("skiny." + winInteger.get(player) + ".permisja"))) {
+                                runAnimation(player);
+                                player.getInventory().removeItemAnySlot(caseItem(1));
+                                cooldown.setSystemTime(player);
+                                break;
+                            }
+                            if (i == 99) {
+                                player.sendMessage(ChatColor.RED + "skrzynie się przegrzały, poczekaj chwilę");
+                                cooldown.setSystemTime(player);
+                            }
+                        }
                     }
-                    if(i==99)
-                        player.sendMessage(ChatColor.RED + "Skrzynie się przegrzały");
-                }
+                    return;
+
             }
+        }
+    }
+
+    @EventHandler
+    public void playerPlaceBlockEvent(BlockPlaceEvent event){
+        if(event.getItemInHand().isSimilar(caseItem(1))){
+            event.getPlayer().sendMessage(ChatColor.RED + "Aby otworzyć skrzynie, kliknij nią w powietrze");
+            event.setCancelled(true);
         }
     }
 
