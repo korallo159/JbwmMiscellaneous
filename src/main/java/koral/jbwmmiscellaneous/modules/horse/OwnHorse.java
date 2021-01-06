@@ -20,16 +20,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.inventory.AbstractHorseInventory;
 import org.bukkit.inventory.HorseInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @ModuleManager.Moduł
 public class OwnHorse extends CommandManager implements Listener {
@@ -219,6 +217,7 @@ public class OwnHorse extends CommandManager implements Listener {
 
         return horsebook;
     }
+    private HashMap<String, List<ItemStack>> deathItems = new HashMap<>();
     @EventHandler
     public void onEntitydeathEvent(EntityDeathEvent event){
         Entity e = event.getEntity();
@@ -238,12 +237,29 @@ public class OwnHorse extends CommandManager implements Listener {
         }
         if(e instanceof Player){
             Player player = (Player) event.getEntity();
-            for(ItemStack is: event.getDrops()){
-                if(is.isSimilar(getHorseBook1()) || is.isSimilar(getHorseBook2()) || is.isSimilar(getHorseBook3())){
-
+            List<ItemStack> items = event.getDrops();
+            List<ItemStack> saveItems = new ArrayList<>();
+            for(ItemStack is: items){
+                if(is.isSimilar(getHorseBook1()) ||is.isSimilar(getHorseBook2()) || is.isSimilar(getHorseBook3())){
+                    saveItems.add(is);
                 }
             }
+            event.getDrops().removeAll(saveItems);
+            deathItems.put(player.getUniqueId().toString(), saveItems);
         }
+    }
+
+    @EventHandler
+    public void onPlayerRespawnEvent(PlayerRespawnEvent event){
+        if(deathItems.containsKey(event.getPlayer().getUniqueId().toString())){
+            for(ItemStack is: deathItems.get(event.getPlayer().getUniqueId().toString())){
+
+              event.getPlayer().getInventory().addItem(is);
+            }
+
+          deathItems.remove(event.getPlayer().getUniqueId().toString());
+        }
+        else return;
     }
 
 
