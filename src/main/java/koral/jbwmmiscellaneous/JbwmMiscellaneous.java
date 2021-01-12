@@ -1,10 +1,11 @@
 package koral.jbwmmiscellaneous;
 
+import com.andrei1058.bedwars.api.BedWars;
 import com.google.common.collect.Lists;
 import koral.jbwmmiscellaneous.database.CreateTables;
 import koral.jbwmmiscellaneous.database.DatabaseConnection;
 import koral.jbwmmiscellaneous.managers.ModuleManager;
-import net.luckperms.api.LuckPerms;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
@@ -12,15 +13,19 @@ import java.util.logging.Logger;
 
 public final class JbwmMiscellaneous extends JavaPlugin {
     public static JbwmMiscellaneous jbwmMiscellaneous;
-    public static LuckPerms luckPerms;
+
     @Override
     public void onEnable() {
         jbwmMiscellaneous = this;
         new ModuleManager();
         saveDefaultConfig();
         if(getConfig().getBoolean("DatabaseEnabled")) {
-            DatabaseConnection.connectToDatabase();
-            CreateTables.createStatsTable();
+            try {
+                DatabaseConnection.connectToDatabase();
+                CreateTables.createStatsTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -28,9 +33,21 @@ public final class JbwmMiscellaneous extends JavaPlugin {
         return jbwmMiscellaneous;
     }
 
+
+
     @Override
     public void onDisable() {
     }
+
+
+
+
+
+
+
+
+
+
     //pozyczone od michalasa D: util do logowania
     public static String listToString(List<?> lista, int start, String wstawka) {
         StringBuilder s = new StringBuilder(lista.size() > start ? ""+lista.get(start) : "");

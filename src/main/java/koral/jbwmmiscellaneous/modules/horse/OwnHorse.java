@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -72,12 +73,12 @@ public class OwnHorse extends CommandManager implements Listener {
                 player.sendMessage("przeladowano config");
                 return true;
             }
-         if(cmd.getName().equals("ksiegikoni")){
-             player.getInventory().addItem(getHorseBook1());
-             player.getInventory().addItem(getHorseBook2());
-             player.getInventory().addItem(getHorseBook3());
-             return true;
-         }
+            if(cmd.getName().equals("ksiegikoni")){
+                player.getInventory().addItem(getHorseBook1());
+                player.getInventory().addItem(getHorseBook2());
+                player.getInventory().addItem(getHorseBook3());
+                return true;
+            }
         }
         return true;
     }
@@ -235,6 +236,11 @@ public class OwnHorse extends CommandManager implements Listener {
             player.sendMessage(ChatColor.DARK_RED + "Twój koń zginął! Będziesz potrzebował więcej czasu aby go przywołać");
             event.getDrops().clear();
         }
+
+    }
+/*    @EventHandler
+    public void onPlayerDeathEvent(PlayerDeathEvent event){
+        Entity e = event.getEntity();
         if(e instanceof Player){
             Player player = (Player) event.getEntity();
             List<ItemStack> items = event.getDrops();
@@ -247,6 +253,13 @@ public class OwnHorse extends CommandManager implements Listener {
             event.getDrops().removeAll(saveItems);
             deathItems.put(player.getUniqueId().toString(), saveItems);
         }
+    }*/
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent event){
+        if(event.getItemDrop().getItemStack().isSimilar(getHorseBook1()) || event.getItemDrop().getItemStack().isSimilar(getHorseBook2()) ||
+                event.getItemDrop().getItemStack().isSimilar(getHorseBook3())){
+            summonHorse.checkHorsePlayer(event.getPlayer());
+        }
     }
 
     @EventHandler
@@ -254,13 +267,13 @@ public class OwnHorse extends CommandManager implements Listener {
         if(deathItems.containsKey(event.getPlayer().getUniqueId().toString())){
             for(ItemStack is: deathItems.get(event.getPlayer().getUniqueId().toString())){
 
-              event.getPlayer().getInventory().addItem(is);
+                event.getPlayer().getInventory().addItem(is);
             }
 
-          deathItems.remove(event.getPlayer().getUniqueId().toString());
+            deathItems.remove(event.getPlayer().getUniqueId().toString());
         }
         else return;
     }
 
 
-  }
+}

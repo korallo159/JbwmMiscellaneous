@@ -204,6 +204,12 @@ public class Stats extends CommandManager implements Listener {
     public void ColumnRemoveAsync(String s) {
         Bukkit.getScheduler().runTaskAsynchronously(JbwmMiscellaneous.getJbwmMiscellaneous(), () -> statsStatements.statisticRemove(s));
     }
+    public void PushCustomStatsAsync(Player player){
+        Bukkit.getScheduler().runTaskAsynchronously(JbwmMiscellaneous.getJbwmMiscellaneous(), () -> statsStatements.pushCustomStats(player));
+    }
+    public void CreatePlayerQueryAsync(Player player){
+        Bukkit.getScheduler().runTaskAsynchronously(JbwmMiscellaneous.getJbwmMiscellaneous(), () -> playerStatements.createPlayerQuery(player));
+    }
 
 
     @EventHandler
@@ -269,12 +275,12 @@ public class Stats extends CommandManager implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        playerStatements.createPlayerQuery(e.getPlayer());
+        CreatePlayerQueryAsync(e.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e){
-        statsStatements.pushCustomStats(e.getPlayer());
+        PushCustomStatsAsync(e.getPlayer());
     }
 
 

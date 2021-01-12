@@ -12,6 +12,8 @@ Bandage: true
 DynmapPrinting: false
 QuestAddons: true
 csgoCase: true
+Radio: true
+Birthday: true
 
 #database connection
 #Pamietaj aby nie wlaczac modulow zwiazanych z baza danych, bez poprawnego polaczenia.
